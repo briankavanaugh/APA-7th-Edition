@@ -442,38 +442,38 @@
 
   
   <xsl:template name="templ_str_RetrievedFromCap" >
-    <!--<xsl:param name="LCID" />
+    <xsl:param name="LCID" />
     <xsl:variable name="_LCID">
       <xsl:call-template name="localLCID">
         <xsl:with-param name="LCID" select="$LCID"/>
       </xsl:call-template>
     </xsl:variable>
-    <xsl:value-of select="/*/b:Locals/b:Local[@LCID=$_LCID]/b:Strings/b:RetrievedFromCap"/>
-    <xsl:text>Retrieved %1, from %2</xsl:text>-->
+    <!-- Note: removed due to GitHub issue #3 https://github.com/briankavanaugh/APA-7th-Edition/issues/3 <xsl:value-of select="/*/b:Locals/b:Local[@LCID=$_LCID]/b:Strings/b:RetrievedFromCap"/> -->
+    <xsl:text>Retrieved %1, from %2</xsl:text>
   </xsl:template>
 
   
   <xsl:template name="templ_str_RetrievedCap" >
-    <!--<xsl:param name="LCID" />
+    <xsl:param name="LCID" />
     <xsl:variable name="_LCID">
       <xsl:call-template name="localLCID">
         <xsl:with-param name="LCID" select="$LCID"/>
       </xsl:call-template>
     </xsl:variable>
-    <xsl:value-of select="/*/b:Locals/b:Local[@LCID=$_LCID]/b:Strings/b:RetrievedCap"/>
-    <xsl:text>Retrieved %1.</xsl:text>-->
+    <!-- Note: removed due to GitHub issue #3 https://github.com/briankavanaugh/APA-7th-Edition/issues/3 <xsl:value-of select="/*/b:Locals/b:Local[@LCID=$_LCID]/b:Strings/b:RetrievedCap"/> -->
+    <xsl:text>Retrieved %1.</xsl:text>
   </xsl:template>
 
   
   <xsl:template name="templ_str_FromCap" >
-    <!--<xsl:param name="LCID" />
+    <xsl:param name="LCID" />
     <xsl:variable name="_LCID">
       <xsl:call-template name="localLCID">
         <xsl:with-param name="LCID" select="$LCID"/>
       </xsl:call-template>
     </xsl:variable>
-    <xsl:value-of select="/*/b:Locals/b:Local[@LCID=$_LCID]/b:Strings/b:FromCap"/>
-    <xsl:text>%1</xsl:text>-->
+    <!-- Note: removed due to GitHub issue #3 https://github.com/briankavanaugh/APA-7th-Edition/issues/3 <xsl:value-of select="/*/b:Locals/b:Local[@LCID=$_LCID]/b:Strings/b:FromCap"/> -->
+    <xsl:text>%1</xsl:text>
   </xsl:template>
 
   

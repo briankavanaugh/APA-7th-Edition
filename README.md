@@ -4,9 +4,19 @@ Until (unless) Microsoft gets around to adding a template for the latest version
 
 ## How to Use
 
-Copy the file APASeventhEd.xsl to the appropriate location and restart Word, if running. Then, from the References tab in Word, you should be able to choose APA7. 
-* Windows: C:\Users\\<your_login_name>\AppData\Roaming\Microsoft\Bibliography\Style
-* MacOS: Follow [these instructions](https://answers.microsoft.com/en-us/msoffice/forum/all/adding-citation-style-to-word-for-mac-2016/f7c9c52d-e0b6-4ebe-bac8-6c2497827f31).
+### Windows
+
+1. Exit Word
+1. Using Windows Explorer, copy the file APASeventhEdition.xsl to C:\Users\<your_user_name>\AppData\Roaming\Microsoft\Bibliography\Style 
+1. Restart Word and from the References tab in Word, you should be able to choose APA7. 
+
+### MacOS
+
+1. Exit Word
+1. Using Finder, copy the fileAPASeventhEdition.xsl to *two* locations:
+    1. HD/Applications/Microsoft Word.app/Contents/Resources/Style/ (note that you will have to right-click and "View Contents" on the app icon at HD/Applications/Microsoft Word.app/)
+    1. HD/Users/\<your_user_name>/Library/Containers/com.microsoft.Word/Data/Library/Application Support/Microsoft/Office/Style/
+1. Restart Word and from the References tab in Word, you should be able to choose APA7. 
 
 ## Disclaimer
 

@@ -13,7 +13,7 @@ Until (unless) Microsoft gets around to adding a template for the latest version
 ### MacOS
 
 1. Exit Word
-1. Using Finder, copy the fileAPASeventhEdition.xsl to *two* locations:
+1. Using Finder, copy the file APASeventhEdition.xsl to *two* locations:
     1. HD/Applications/Microsoft Word.app/Contents/Resources/Style/ (note that you will have to right-click and "View Contents" on the app icon at HD/Applications/Microsoft Word.app/)
     1. HD/Users/\<your_user_name>/Library/Containers/com.microsoft.Word/Data/Library/Application Support/Microsoft/Office/Style/
 1. Restart Word and from the References tab in Word, you should be able to choose APA7. 

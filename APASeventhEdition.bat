@@ -1,0 +1,1 @@
+curl https://github.com/briankavanaugh/APA-7th-Edition/raw/main/APASeventhEdition.xsl -o %appdata%\Microsoft\Bibliography\Style\APASeventhEdition.xsl

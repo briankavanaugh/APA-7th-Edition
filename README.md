@@ -6,9 +6,22 @@ Until (unless) Microsoft gets around to adding a template for the latest version
 
 ### Windows
 
+#### Manual Method
 1. Exit Word
-1. Using Windows Explorer, copy the file APASeventhEdition.xsl to C:\Users\<your_user_name>\AppData\Roaming\Microsoft\Bibliography\Style 
-1. Restart Word and from the References tab in Word, you should be able to choose APA7. 
+2. Using Windows Explorer, copy the file APASeventhEdition.xsl to C:\Users\<your_user_name>\AppData\Roaming\Microsoft\Bibliography\Style 
+3. Restart Word and from the References tab in Word, you should be able to choose APA7. 
+
+#### Bat file method / Cmd method
+1. Exit word
+2. Copy the APASeventhEdition.bat file and allow it to run.
+3. Restart Word and from the References tab in Word, you should be able to choose APA7. 
+
+Note: The bat file simply runs the following line:
+```
+curl https://raw.githubusercontent.com/briankavanaugh/APA-7th-Edition/main/APASeventhEdition.xsl -o "%appdata%\Microsoft\Bibliography\Style\APASeventhEdition.xsl"
+```
+
+
 
 ### MacOS
 

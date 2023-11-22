@@ -7098,7 +7098,8 @@
       </xsl:if>
 
       <xsl:if test="string-length(b:InternetSiteTitle)>0 and string-length(b:URL)>0">
-        <xsl:call-template name="templ_prop_EnumSeparator"/>
+        <xsl:call-template name="templ_prop_Dot"/>
+        <xsl:call-template name="templ_prop_Space"/>
       </xsl:if>
 
       <xsl:if test="string-length(b:URL)>0">

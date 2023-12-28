@@ -5600,11 +5600,6 @@
 
                 <xsl:choose>
                   <xsl:when test="string-length($doi)>0">
-                  <!--TEST DOI HYPERLINK-->
-                    <!--
-                    <xsl:value-of select="$doiPrefix"/>
-                    <xsl:value-of select="$doi"/> 
-                    -->
                       <a href="{$doiPrefix}{$doi}" target="_blank">
                         <xsl:value-of select="concat($doiPrefix, $doi)" />
                       </a>

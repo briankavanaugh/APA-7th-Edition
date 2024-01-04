@@ -2114,13 +2114,10 @@
   <xsl:template name="removeCharsFromEnd">
     <xsl:param name="mainString" />
     <xsl:param name="charsToRemove" />
-
     <!-- Calculate the length of the main string -->
     <xsl:variable name="mainStringLength" select="string-length($mainString)" />
-
     <!-- Calculate the length of the characters to remove -->
     <xsl:variable name="charsToRemoveLength" select="string-length($charsToRemove)" />
-
     <!-- Check if the main string is longer than the characters to remove -->
     <xsl:if test="$mainStringLength > $charsToRemoveLength">
         <!-- Remove characters from the end of the main string -->

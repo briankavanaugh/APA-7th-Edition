@@ -2102,6 +2102,31 @@
     <xsl:value-of select="/*/b:Locals/b:Local[@LCID=$_LCID]/b:APA/b:DateCourt/b:DY"/>
   </xsl:template>
 
+  <!-- Template for formatting a string as a functional hyperlink -->
+  <xsl:template name="formatHyperlink">
+    <xsl:param name="url"/>
+    <a href="{$url}" target="_blank">
+      <xsl:value-of select="$url"/>
+    </a>
+  </xsl:template>
+
+  <!-- Template to remove characters from the end of a string -->
+  <xsl:template name="removeCharsFromEnd">
+    <xsl:param name="mainString" />
+    <xsl:param name="charsToRemove" />
+
+    <!-- Calculate the length of the main string -->
+    <xsl:variable name="mainStringLength" select="string-length($mainString)" />
+
+    <!-- Calculate the length of the characters to remove -->
+    <xsl:variable name="charsToRemoveLength" select="string-length($charsToRemove)" />
+
+    <!-- Check if the main string is longer than the characters to remove -->
+    <xsl:if test="$mainStringLength > $charsToRemoveLength">
+        <!-- Remove characters from the end of the main string -->
+        <xsl:value-of select="substring($mainString, 1, $mainStringLength - $charsToRemoveLength)" />
+    </xsl:if>
+  </xsl:template>
 
   <xsl:template match="/">
 
@@ -2116,7 +2141,7 @@
       </xsl:when>
 
        <xsl:when test="b:XslVersion">
-	<xsl:text>7</xsl:text>
+	      <xsl:text>7</xsl:text>
       </xsl:when>
 
       <xsl:when test="b:StyleNameLocalized">
@@ -5600,12 +5625,22 @@
 
                 <xsl:choose>
                   <xsl:when test="string-length($doi)>0">
-                      <a href="{$doiPrefix}{$doi}" target="_blank">
+                      <!--<a href="{$doiPrefix}{$doi}" target="_blank">
                         <xsl:value-of select="concat($doiPrefix, $doi)" />
-                      </a>
+                      </a>  -->
+                      <xsl:call-template name="formatHyperlink">
+                        <xsl:with-param name="url" select="concat($doiPrefix, $doi)"/>
+                      </xsl:call-template>
                   </xsl:when>
-                  <xsl:when test="string-length($tempRDAFU)>0">
-                    <xsl:value-of select="$tempRDAFU"/>
+                  <xsl:when test="string-length($tempRDAFU) > 0">
+                    <!--<xsl:value-of select="$tempRDAFU"/>-->
+                    <xsl:call-template name="removeCharsFromEnd">
+                        <xsl:with-param name="mainString" select="$tempRDAFU" />
+                        <xsl:with-param name="charsToRemove" select="b:URL" />
+                    </xsl:call-template>
+                    <xsl:call-template name="formatHyperlink">
+                      <xsl:with-param name="url" select="b:URL"/>
+                    </xsl:call-template>
                   </xsl:when>
                 </xsl:choose>
               </xsl:element>
@@ -7102,9 +7137,10 @@
         <xsl:call-template name="templ_prop_Dot"/>
         <xsl:call-template name="templ_prop_Space"/>
       </xsl:if>
-
+    
       <xsl:if test="string-length(b:URL)>0">
         <xsl:value-of select="b:URL"/>
+        <!--<xsl:value-of select="' '"/>-->
       </xsl:if>
     </xsl:variable>
 

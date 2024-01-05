@@ -2110,17 +2110,13 @@
     </a>
   </xsl:template>
 
-  <!-- Template to remove characters from the end of a string -->
   <xsl:template name="removeCharsFromEnd">
     <xsl:param name="mainString" />
     <xsl:param name="charsToRemove" />
-
     <!-- Calculate the length of the main string -->
     <xsl:variable name="mainStringLength" select="string-length($mainString)" />
-
     <!-- Calculate the length of the characters to remove -->
     <xsl:variable name="charsToRemoveLength" select="string-length($charsToRemove)" />
-
     <!-- Check if the main string is longer than the characters to remove -->
     <xsl:if test="$mainStringLength > $charsToRemoveLength">
         <!-- Remove characters from the end of the main string -->
@@ -5625,9 +5621,6 @@
 
                 <xsl:choose>
                   <xsl:when test="string-length($doi)>0">
-                      <!--<a href="{$doiPrefix}{$doi}" target="_blank">
-                        <xsl:value-of select="concat($doiPrefix, $doi)" />
-                      </a>  -->
                       <xsl:call-template name="formatHyperlink">
                         <xsl:with-param name="url" select="concat($doiPrefix, $doi)"/>
                       </xsl:call-template>
@@ -7140,7 +7133,6 @@
     
       <xsl:if test="string-length(b:URL)>0">
         <xsl:value-of select="b:URL"/>
-        <!--<xsl:value-of select="' '"/>-->
       </xsl:if>
     </xsl:variable>
 

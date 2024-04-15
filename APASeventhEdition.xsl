@@ -471,7 +471,6 @@
       </xsl:call-template>
     </xsl:variable>
     <xsl:value-of select="/*/b:Locals/b:Local[@LCID=$_LCID]/b:Strings/b:FromCap"/>
-    <xsl:text>%1</xsl:text>
   </xsl:template>
 
   
@@ -2345,10 +2344,10 @@
               <b:ImportantField>
                 <xsl:text>b:Volume</xsl:text>
               </b:ImportantField>              
-        <b:ImportantField>
+              <b:ImportantField>
                 <xsl:text>b:Issue</xsl:text>
               </b:ImportantField>              
-        <b:ImportantField>
+              <b:ImportantField>
                 <xsl:text>b:DOI</xsl:text>
               </b:ImportantField>
             </xsl:when>
@@ -2375,10 +2374,10 @@
               <b:ImportantField>
                 <xsl:text>b:Pages</xsl:text>
               </b:ImportantField>
-             <b:ImportantField>
+              <b:ImportantField>
                 <xsl:text>b:URL</xsl:text>
               </b:ImportantField>
-            <b:ImportantField>
+              <b:ImportantField>
                 <xsl:text>b:DOI</xsl:text>
               </b:ImportantField>
             </xsl:when>
@@ -2390,13 +2389,13 @@
               <b:ImportantField>
                 <xsl:text>b:Title</xsl:text>
               </b:ImportantField>
-	      <b:ImportantField>
+      	      <b:ImportantField>
                 <xsl:text>b:ConferenceName</xsl:text>
               </b:ImportantField>
               <b:ImportantField>
                 <xsl:text>b:Year</xsl:text>
               </b:ImportantField>
-	      <b:ImportantField>
+	            <b:ImportantField>
                 <xsl:text>b:Month</xsl:text>
               </b:ImportantField>
               <b:ImportantField>
@@ -2426,7 +2425,7 @@
               <b:ImportantField>
                 <xsl:text>b:Year</xsl:text>
               </b:ImportantField>
-		<b:ImportantField>
+		          <b:ImportantField>
                 <xsl:text>b:Month</xsl:text>
               </b:ImportantField>
               <b:ImportantField>
@@ -5626,7 +5625,7 @@
                         <xsl:with-param name="url" select="concat($doiPrefix, $doi)"/>
                       </xsl:call-template>
                   </xsl:when>
-                  <xsl:when test="string-length($tempRDAFU) > 0">
+                  <xsl:when test="string-length($tempRDAFU)>0">
                     <xsl:call-template name="findAndFormatHyperlink">
                       <xsl:with-param name="original" select="$tempRDAFU"/>
                       <xsl:with-param name="url" select="b:URL"/>

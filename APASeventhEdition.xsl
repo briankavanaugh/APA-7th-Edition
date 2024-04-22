@@ -464,6 +464,7 @@
 
   
   <xsl:template name="templ_str_FromCap" >
+    <!--
     <xsl:param name="LCID" />
     <xsl:variable name="_LCID">
       <xsl:call-template name="localLCID">
@@ -471,6 +472,8 @@
       </xsl:call-template>
     </xsl:variable>
     <xsl:value-of select="/*/b:Locals/b:Local[@LCID=$_LCID]/b:Strings/b:FromCap"/>
+    -->
+    <xsl:text>%1</xsl:text>
   </xsl:template>
 
   

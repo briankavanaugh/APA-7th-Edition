@@ -464,13 +464,13 @@
 
   
   <xsl:template name="templ_str_FromCap" >
-    <!--
     <xsl:param name="LCID" />
     <xsl:variable name="_LCID">
       <xsl:call-template name="localLCID">
         <xsl:with-param name="LCID" select="$LCID"/>
       </xsl:call-template>
     </xsl:variable>
+    <!-- "retrieved from" should be omitted if there is no date
     <xsl:value-of select="/*/b:Locals/b:Local[@LCID=$_LCID]/b:Strings/b:FromCap"/>
     -->
     <xsl:text>%1</xsl:text>

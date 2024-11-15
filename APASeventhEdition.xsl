@@ -448,8 +448,7 @@
         <xsl:with-param name="LCID" select="$LCID"/>
       </xsl:call-template>
     </xsl:variable>
-    <!-- Note: removed due to GitHub issue #3 https://github.com/briankavanaugh/APA-7th-Edition/issues/3 <xsl:value-of select="/*/b:Locals/b:Local[@LCID=$_LCID]/b:Strings/b:RetrievedFromCap"/> -->
-    <xsl:text>Retrieved %1, from %2</xsl:text>
+    <xsl:value-of select="/*/b:Locals/b:Local[@LCID=$_LCID]/b:Strings/b:RetrievedFromCap"/>
   </xsl:template>
 
   
@@ -460,8 +459,7 @@
         <xsl:with-param name="LCID" select="$LCID"/>
       </xsl:call-template>
     </xsl:variable>
-    <!-- Note: removed due to GitHub issue #3 https://github.com/briankavanaugh/APA-7th-Edition/issues/3 <xsl:value-of select="/*/b:Locals/b:Local[@LCID=$_LCID]/b:Strings/b:RetrievedCap"/> -->
-    <xsl:text>Retrieved %1.</xsl:text>
+    <xsl:value-of select="/*/b:Locals/b:Local[@LCID=$_LCID]/b:Strings/b:RetrievedCap"/>
   </xsl:template>
 
   
@@ -472,7 +470,9 @@
         <xsl:with-param name="LCID" select="$LCID"/>
       </xsl:call-template>
     </xsl:variable>
-    <!-- Note: removed due to GitHub issue #3 https://github.com/briankavanaugh/APA-7th-Edition/issues/3 <xsl:value-of select="/*/b:Locals/b:Local[@LCID=$_LCID]/b:Strings/b:FromCap"/> -->
+    <!-- "retrieved from" should be omitted if there is no date
+    <xsl:value-of select="/*/b:Locals/b:Local[@LCID=$_LCID]/b:Strings/b:FromCap"/>
+    -->
     <xsl:text>%1</xsl:text>
   </xsl:template>
 
@@ -2110,18 +2110,21 @@
     </a>
   </xsl:template>
 
-  <xsl:template name="removeCharsFromEnd">
-    <xsl:param name="mainString" />
-    <xsl:param name="charsToRemove" />
-    <!-- Calculate the length of the main string -->
-    <xsl:variable name="mainStringLength" select="string-length($mainString)" />
-    <!-- Calculate the length of the characters to remove -->
-    <xsl:variable name="charsToRemoveLength" select="string-length($charsToRemove)" />
-    <!-- Check if the main string is longer than the characters to remove -->
-    <xsl:if test="$mainStringLength > $charsToRemoveLength">
-        <!-- Remove characters from the end of the main string -->
-        <xsl:value-of select="substring($mainString, 1, $mainStringLength - $charsToRemoveLength)" />
-    </xsl:if>
+  <xsl:template name="findAndFormatHyperlink">
+    <xsl:param name="original"/>
+    <xsl:param name="url"/>
+    <xsl:choose>
+      <xsl:when test="contains($original,$url)">
+        <xsl:value-of select="substring-before($original,$url)"/>
+        <xsl:call-template name="formatHyperlink">
+          <xsl:with-param name="url" select="$url"/>
+        </xsl:call-template>
+        <xsl:value-of select="substring-after($original,$url)"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select="$original"/>
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:template>
 
   <xsl:template match="/">
@@ -2136,8 +2139,8 @@
         <xsl:text>APA</xsl:text>
       </xsl:when>
 
-       <xsl:when test="b:XslVersion">
-	      <xsl:text>7</xsl:text>
+      <xsl:when test="b:XslVersion">
+        <xsl:text>7</xsl:text>
       </xsl:when>
 
       <xsl:when test="b:StyleNameLocalized">
@@ -2344,10 +2347,10 @@
               <b:ImportantField>
                 <xsl:text>b:Volume</xsl:text>
               </b:ImportantField>              
-	      <b:ImportantField>
+              <b:ImportantField>
                 <xsl:text>b:Issue</xsl:text>
               </b:ImportantField>              
-	      <b:ImportantField>
+              <b:ImportantField>
                 <xsl:text>b:DOI</xsl:text>
               </b:ImportantField>
             </xsl:when>
@@ -2374,10 +2377,10 @@
               <b:ImportantField>
                 <xsl:text>b:Pages</xsl:text>
               </b:ImportantField>
-             <b:ImportantField>
+              <b:ImportantField>
                 <xsl:text>b:URL</xsl:text>
               </b:ImportantField>
-            <b:ImportantField>
+              <b:ImportantField>
                 <xsl:text>b:DOI</xsl:text>
               </b:ImportantField>
             </xsl:when>
@@ -2389,13 +2392,13 @@
               <b:ImportantField>
                 <xsl:text>b:Title</xsl:text>
               </b:ImportantField>
-	      <b:ImportantField>
+      	      <b:ImportantField>
                 <xsl:text>b:ConferenceName</xsl:text>
               </b:ImportantField>
               <b:ImportantField>
                 <xsl:text>b:Year</xsl:text>
               </b:ImportantField>
-	      <b:ImportantField>
+	            <b:ImportantField>
                 <xsl:text>b:Month</xsl:text>
               </b:ImportantField>
               <b:ImportantField>
@@ -2425,7 +2428,7 @@
               <b:ImportantField>
                 <xsl:text>b:Year</xsl:text>
               </b:ImportantField>
-		<b:ImportantField>
+		          <b:ImportantField>
                 <xsl:text>b:Month</xsl:text>
               </b:ImportantField>
               <b:ImportantField>
@@ -5625,13 +5628,9 @@
                         <xsl:with-param name="url" select="concat($doiPrefix, $doi)"/>
                       </xsl:call-template>
                   </xsl:when>
-                  <xsl:when test="string-length($tempRDAFU) > 0">
-                    <!--<xsl:value-of select="$tempRDAFU"/>-->
-                    <xsl:call-template name="removeCharsFromEnd">
-                        <xsl:with-param name="mainString" select="$tempRDAFU" />
-                        <xsl:with-param name="charsToRemove" select="b:URL" />
-                    </xsl:call-template>
-                    <xsl:call-template name="formatHyperlink">
+                  <xsl:when test="string-length($tempRDAFU)>0">
+                    <xsl:call-template name="findAndFormatHyperlink">
+                      <xsl:with-param name="original" select="$tempRDAFU"/>
                       <xsl:with-param name="url" select="b:URL"/>
                     </xsl:call-template>
                   </xsl:when>

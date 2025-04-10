@@ -11,12 +11,15 @@ DESTINATION_PATH_1="/Applications/Microsoft Word.app/Contents/Resources/Style/AP
 DESTINATION_PATH_2="/Users/$USERNAME/Library/Containers/com.microsoft.Word/Data/Library/Application Support/Microsoft/Office/Style/APASeventhEdition.xsl"
 
 # Download the file and place it in the first destination
+echo "Path 1:$DESTINATION_PATH_1"
+echo "Path 2:$DESTINATION_PATH_2"
+
 sudo curl "$SOURCE_URL" -o "$DESTINATION_PATH_1"
 
 # Check if the file was successfully downloaded
 if [ -e "$DESTINATION_PATH_1" ]; then
     # If successful, also copy it to the second destination
-    sudo cp "$DESTINATION_PATH_1" "$DESTINATION_PATH_2"
+    sudo mkdir -p "$DESTINATION_PATH_2" && sudo cp "$DESTINATION_PATH_1" "$DESTINATION_PATH_2"
     echo "File placed in both locations successfully."
 else
     echo "Failed to download the file."

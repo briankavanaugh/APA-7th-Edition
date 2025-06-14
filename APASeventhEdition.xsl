@@ -393,8 +393,16 @@
         <xsl:with-param name="LCID" select="$LCID"/>
       </xsl:call-template>
     </xsl:variable>
-    <xsl:value-of select="/*/b:Locals/b:Local[@LCID=$_LCID]/b:Strings/b:AndOthersUnCap"/>
-  </xsl:template>
+    <!--start: fix to change y otros to et al.-->
+    <xsl:choose>
+      <xsl:when test="$_LCID = '1053' or $_LCID = '3082'"><!--swedish, spanish(?)-->
+        <xsl:text>et al.</xsl:text>
+      </xsl:when>
+      <xsl:otherwise>
+       <xsl:value-of select="/*/b:Locals/b:Local[@LCID=$_LCID]/b:Strings/b:AndOthersUnCap"/>
+      </xsl:otherwise>
+    </xsl:choose>
+    <!--finish: fix to change y otros to et al.-->  </xsl:template>
 
   
   <xsl:template name="templ_str_MotionPictureCap" >

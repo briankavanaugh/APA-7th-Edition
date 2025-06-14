@@ -2993,6 +2993,7 @@
 						<xsl:variable name="ppPages">
 							<xsl:if test="string-length($pages)>0">
 								<xsl:choose>
+									<xsl:when test="0!=string-length(translate($pages, concat(',0123456789 ', $prop_APA_Hyphens), ''))"/>
 									<xsl:when test="not(string-length($pages)=string-length(translate($pages, ',', '')))">
 										<xsl:call-template name="templ_str_PagesCountinousShort"/>
 									</xsl:when>
@@ -3278,6 +3279,7 @@
                 <xsl:variable name="ppPages">
                   <xsl:if test="string-length($pages)>0">
                     <xsl:choose>
+                      <xsl:when test="0!=string-length(translate($pages, concat(',0123456789 ', $prop_APA_Hyphens), ''))"/>
                       <xsl:when test="not(string-length($pages)=string-length(translate($pages, ',', '')))">
                         <xsl:call-template name="templ_str_PagesCountinousShort"/>
                       </xsl:when>

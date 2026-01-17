@@ -26,6 +26,12 @@ sudo mkdir -p "$(dirname "$DESTINATION_PATH_2")"
 sudo cp "$LOCAL_FILE" "$DESTINATION_PATH_2"
 echo "Initial file copy completed."
 
+# Set permissions
+sudo chmod 775 "$DESTINATION_PATH_1"
+sudo chmod 775 "$DESTINATION_PATH_2"
+sudo chown "$USERNAME" "$DESTINATION_PATH_2"
+echo "Permissions set."
+
 # Check for --persist flag
 if [[ "$1" == "--persist" ]]; then
     echo "Setting up LaunchDaemon for persistence..."

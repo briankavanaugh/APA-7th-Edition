@@ -2316,9 +2316,9 @@
               <b:ImportantField>
                 <xsl:text>b:Title</xsl:text>
               </b:ImportantField>
-              <b:ImportantField>
+<!--              <b:ImportantField>
                 <xsl:text>b:Author/b:BookAuthor/b:NameList</xsl:text>
-              </b:ImportantField>
+              </b:ImportantField> -->
               <b:ImportantField>
                 <xsl:text>b:BookTitle</xsl:text>
               </b:ImportantField>
@@ -2333,6 +2333,9 @@
               </b:ImportantField>
               <b:ImportantField>
                 <xsl:text>b:Publisher</xsl:text>
+              </b:ImportantField>
+              <b:ImportantField>
+                <xsl:text>b:Edition</xsl:text>
               </b:ImportantField>
             </xsl:when>
 

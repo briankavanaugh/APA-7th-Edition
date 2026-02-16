@@ -448,8 +448,7 @@
         <xsl:with-param name="LCID" select="$LCID"/>
       </xsl:call-template>
     </xsl:variable>
-    <!-- Note: removed due to GitHub issue #3 https://github.com/briankavanaugh/APA-7th-Edition/issues/3 <xsl:value-of select="/*/b:Locals/b:Local[@LCID=$_LCID]/b:Strings/b:RetrievedFromCap"/> -->
-    <xsl:text>Retrieved %1, from %2</xsl:text>
+    <xsl:value-of select="/*/b:Locals/b:Local[@LCID=$_LCID]/b:Strings/b:RetrievedFromCap"/>
   </xsl:template>
 
   
@@ -460,8 +459,7 @@
         <xsl:with-param name="LCID" select="$LCID"/>
       </xsl:call-template>
     </xsl:variable>
-    <!-- Note: removed due to GitHub issue #3 https://github.com/briankavanaugh/APA-7th-Edition/issues/3 <xsl:value-of select="/*/b:Locals/b:Local[@LCID=$_LCID]/b:Strings/b:RetrievedCap"/> -->
-    <xsl:text>Retrieved %1.</xsl:text>
+    <xsl:value-of select="/*/b:Locals/b:Local[@LCID=$_LCID]/b:Strings/b:RetrievedCap"/>
   </xsl:template>
 
   
@@ -472,7 +470,9 @@
         <xsl:with-param name="LCID" select="$LCID"/>
       </xsl:call-template>
     </xsl:variable>
-    <!-- Note: removed due to GitHub issue #3 https://github.com/briankavanaugh/APA-7th-Edition/issues/3 <xsl:value-of select="/*/b:Locals/b:Local[@LCID=$_LCID]/b:Strings/b:FromCap"/> -->
+    <!-- "retrieved from" should be omitted if there is no date
+    <xsl:value-of select="/*/b:Locals/b:Local[@LCID=$_LCID]/b:Strings/b:FromCap"/>
+    -->
     <xsl:text>%1</xsl:text>
   </xsl:template>
 
@@ -1605,6 +1605,14 @@
     <xsl:value-of select="/*/b:Locals/b:Local[@LCID=$_LCID]/b:General/b:ListSeparator"/>
   </xsl:template>
 
+  <xsl:template name="formatMediumInBrackets">
+    <xsl:if test="string-length(b:Medium) > 0">
+      <xsl:call-template name="templ_prop_Space"/>
+      <xsl:call-template name="templ_prop_APA_SecondaryOpen"/>
+      <xsl:value-of select="b:Medium"/>
+      <xsl:call-template name="templ_prop_APA_SecondaryClose"/>
+    </xsl:if>
+  </xsl:template>
   
   <xsl:template name="templ_prop_Dot" >
     <xsl:param name="LCID" />
@@ -2102,6 +2110,30 @@
     <xsl:value-of select="/*/b:Locals/b:Local[@LCID=$_LCID]/b:APA/b:DateCourt/b:DY"/>
   </xsl:template>
 
+  <!-- Template for formatting a string as a functional hyperlink -->
+  <xsl:template name="formatHyperlink">
+    <xsl:param name="url"/>
+    <a href="{$url}" target="_blank">
+      <xsl:value-of select="$url"/>
+    </a>
+  </xsl:template>
+
+  <xsl:template name="findAndFormatHyperlink">
+    <xsl:param name="original"/>
+    <xsl:param name="url"/>
+    <xsl:choose>
+      <xsl:when test="contains($original,$url)">
+        <xsl:value-of select="substring-before($original,$url)"/>
+        <xsl:call-template name="formatHyperlink">
+          <xsl:with-param name="url" select="$url"/>
+        </xsl:call-template>
+        <xsl:value-of select="substring-after($original,$url)"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select="$original"/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
 
   <xsl:template match="/">
 
@@ -2115,8 +2147,8 @@
         <xsl:text>APA</xsl:text>
       </xsl:when>
 
-       <xsl:when test="b:XslVersion">
-	<xsl:text>7</xsl:text>
+      <xsl:when test="b:XslVersion">
+        <xsl:text>7</xsl:text>
       </xsl:when>
 
       <xsl:when test="b:StyleNameLocalized">
@@ -2326,10 +2358,10 @@
               <b:ImportantField>
                 <xsl:text>b:Volume</xsl:text>
               </b:ImportantField>              
-	      <b:ImportantField>
+              <b:ImportantField>
                 <xsl:text>b:Issue</xsl:text>
               </b:ImportantField>              
-	      <b:ImportantField>
+              <b:ImportantField>
                 <xsl:text>b:DOI</xsl:text>
               </b:ImportantField>
             </xsl:when>
@@ -2356,10 +2388,10 @@
               <b:ImportantField>
                 <xsl:text>b:Pages</xsl:text>
               </b:ImportantField>
-             <b:ImportantField>
+              <b:ImportantField>
                 <xsl:text>b:URL</xsl:text>
               </b:ImportantField>
-            <b:ImportantField>
+              <b:ImportantField>
                 <xsl:text>b:DOI</xsl:text>
               </b:ImportantField>
             </xsl:when>
@@ -2371,13 +2403,13 @@
               <b:ImportantField>
                 <xsl:text>b:Title</xsl:text>
               </b:ImportantField>
-	      <b:ImportantField>
+      	      <b:ImportantField>
                 <xsl:text>b:ConferenceName</xsl:text>
               </b:ImportantField>
               <b:ImportantField>
                 <xsl:text>b:Year</xsl:text>
               </b:ImportantField>
-	      <b:ImportantField>
+	            <b:ImportantField>
                 <xsl:text>b:Month</xsl:text>
               </b:ImportantField>
               <b:ImportantField>
@@ -2407,7 +2439,7 @@
               <b:ImportantField>
                 <xsl:text>b:Year</xsl:text>
               </b:ImportantField>
-		<b:ImportantField>
+		          <b:ImportantField>
                 <xsl:text>b:Month</xsl:text>
               </b:ImportantField>
               <b:ImportantField>
@@ -2972,6 +3004,7 @@
 						<xsl:variable name="ppPages">
 							<xsl:if test="string-length($pages)>0">
 								<xsl:choose>
+									<xsl:when test="0!=string-length(translate($pages, concat(',0123456789 ', $prop_APA_Hyphens), ''))"/>
 									<xsl:when test="not(string-length($pages)=string-length(translate($pages, ',', '')))">
 										<xsl:call-template name="templ_str_PagesCountinousShort"/>
 									</xsl:when>
@@ -3257,6 +3290,7 @@
                 <xsl:variable name="ppPages">
                   <xsl:if test="string-length($pages)>0">
                     <xsl:choose>
+                      <xsl:when test="0!=string-length(translate($pages, concat(',0123456789 ', $prop_APA_Hyphens), ''))"/>
                       <xsl:when test="not(string-length($pages)=string-length(translate($pages, ',', '')))">
                         <xsl:call-template name="templ_str_PagesCountinousShort"/>
                       </xsl:when>
@@ -4991,15 +5025,17 @@
                             <xsl:value-of select="$enclosedDateDot"/>
                           </xsl:if>
 
-                          <xsl:if test="string-length($titleDot)>0">
+                          <xsl:if test="string-length(b:Title)>0">
                             <xsl:call-template name="templ_prop_Space"/>
                             <xsl:call-template name = "ApplyItalicTitleNS">
                               <xsl:with-param name = "data">
-                                <xsl:value-of select="$titleDot"/>
+                                <xsl:value-of select="b:Title"/>
                               </xsl:with-param>
                             </xsl:call-template>
-                          </xsl:if>
 
+                            <xsl:call-template name="formatMediumInBrackets"/>
+                            <xsl:call-template name="templ_prop_Dot"/>
+                          </xsl:if>
                           <xsl:if test="string-length($theEditorAndTranslatorDot)>0">
                             <xsl:call-template name="templ_prop_Space"/>
                             <xsl:value-of select="$theEditorAndTranslatorDot"/>
@@ -5603,12 +5639,15 @@
 
                 <xsl:choose>
                   <xsl:when test="string-length($doi)>0">
-                      <a href="{$doiPrefix}{$doi}" target="_blank">
-                        <xsl:value-of select="concat($doiPrefix, $doi)" />
-                      </a>
+                      <xsl:call-template name="formatHyperlink">
+                        <xsl:with-param name="url" select="concat($doiPrefix, $doi)"/>
+                      </xsl:call-template>
                   </xsl:when>
                   <xsl:when test="string-length($tempRDAFU)>0">
-                    <xsl:value-of select="$tempRDAFU"/>
+                    <xsl:call-template name="findAndFormatHyperlink">
+                      <xsl:with-param name="original" select="$tempRDAFU"/>
+                      <xsl:with-param name="url" select="b:URL"/>
+                    </xsl:call-template>
                   </xsl:when>
                 </xsl:choose>
               </xsl:element>
@@ -7105,7 +7144,7 @@
         <xsl:call-template name="templ_prop_Dot"/>
         <xsl:call-template name="templ_prop_Space"/>
       </xsl:if>
-
+    
       <xsl:if test="string-length(b:URL)>0">
         <xsl:value-of select="b:URL"/>
       </xsl:if>

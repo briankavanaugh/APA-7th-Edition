@@ -388,12 +388,8 @@
   
   <xsl:template name="templ_str_AndOthersUnCap" >
     <xsl:param name="LCID" />
-    <xsl:variable name="_LCID">
-      <xsl:call-template name="localLCID">
-        <xsl:with-param name="LCID" select="$LCID"/>
-      </xsl:call-template>
-    </xsl:variable>
-    <xsl:value-of select="/*/b:Locals/b:Local[@LCID=$_LCID]/b:Strings/b:AndOthersUnCap"/>
+    <!-- APA 7 requires Latin "et al." in every language, not Word's localized AndOthersUnCap (Spanish "y otros", Dutch "a.o.", etc.). -->
+    <xsl:text>et al.</xsl:text>
   </xsl:template>
 
   
